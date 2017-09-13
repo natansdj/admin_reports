@@ -10,7 +10,7 @@ class Voga_AdminReports_Block_Adminhtml_Sales_Countries_Grid extends Voga_AdminR
 
         $customersSelect = Mage::getSingleton('core/resource')->getConnection('core_read')->select()
             ->from(Mage::getSingleton('core/resource')->getTableName('customer/entity'), array('customer_created_date' => 'DATE_FORMAT(created_at, \'%Y-%m-%d\')', 'total_customers' => 'COUNT(*)'))
-            ->where('created_at BETWEEN \'' . $filterData->getData('from') .'\' AND \'' . $filterData->getData('to') . '\'')
+            ->where('created_at BETWEEN \'' . $filterData->getData('from') . '\' AND \'' . $filterData->getData('to') . '\'')
             ->group('customer_created_date');
 
 
@@ -18,7 +18,7 @@ class Voga_AdminReports_Block_Adminhtml_Sales_Countries_Grid extends Voga_AdminR
             ->reset(Zend_Db_Select::COLUMNS)
             ->columns('DATE_FORMAT(main_table.created_at, \'%Y-%m-%d\') AS date, SUM(main_table.base_grand_total) AS country_base_grand_total')
             ->join(
-                array('address' => 'sales_flat_order_address'),
+                array('address' => Mage::getSingleton('core/resource')->getTableName('sales_flat_order_address')),
                 'address.parent_id = main_table.entity_id AND address.address_type=\'billing\'',
                 array('country_id')
             )

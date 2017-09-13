@@ -1,0 +1,3 @@
+app/code/local/Voga/AdminReports                                        app/code/local/Voga/AdminReports
+app/etc/modules/Voga_AdminReports.xml                                   app/etc/modules/Voga_AdminReports.xml
+app/design/adminhtml/default/default/layout/voga_adminreports.xml       app/design/adminhtml/default/default/layout/voga_adminreports.xml
