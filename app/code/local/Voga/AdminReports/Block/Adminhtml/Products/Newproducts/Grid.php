@@ -28,7 +28,7 @@ class Voga_AdminReports_Block_Adminhtml_Products_Newproducts_Grid extends Voga_A
         $collection
             ->getSelect()
             ->join(
-                array('link' => 'catalog_product_super_link'),
+                array('link' => $collection->getTable('catalog_product_super_link')),
                 'link.product_id = e.entity_id',
                 array('parent_id', 'parent_id')
             )
@@ -72,7 +72,8 @@ class Voga_AdminReports_Block_Adminhtml_Products_Newproducts_Grid extends Voga_A
         $configurableProductsIds = implode(',', $this->getConfigurableIds($this->getCollection()));
 
         $connection  = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $sql         = "SELECT category_id, product_id FROM `catalog_category_product` WHERE `product_id` in ({$configurableProductsIds})";
+        $catProductTable  = Mage::getSingleton('core/resource')->getTableName('catalog_category_product');
+        $sql         = "SELECT category_id, product_id FROM `{$catProductTable}` WHERE `product_id` in ({$configurableProductsIds})";
         $rows        = $connection->fetchAll($sql);
 
         $productCategoriesIds = array();
